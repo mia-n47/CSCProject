@@ -14,7 +14,8 @@ database = [data.Classes("CSC 101", "TUETHU","8 am", "11am"),
             data.Classes("MATH 142", "MONTUETHUFRI", "9am", "10am"),
             data.Classes("MATH 141", "MONTUETHUFRI", "7am", "8am"),
             data.Classes("ES 256", "TUETHU", "8am", "10am"),
-            data.Classes("PHYS 142", "WEDFRI", "2pm","4pm")
+            data.Classes("PHYS 142", "WEDFRI", "2pm","4pm"),
+            data.Classes("CSC 101", "MONWEDFRI", "10am", "12pm")
             ]
 
 
