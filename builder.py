@@ -18,7 +18,12 @@ database = [data.Classes("CSC 101", "TUETHU","8 am", "11am"),
             data.Classes("CSC 101", "MONWEDFRI", "10am", "12pm")
             ]
 
+def class_verify(#single list):
+
+
 
 def main():
     user_input = input("Enter 6 possible classes:" )
-    possible_classes = #[[list of 4 possible classes], [list of possible 4 classes]]
+    possible_classes = []#[[list of 4 possible classes], [list of possible 4 classes]]
+    if class_verify(#single list of possible classes) == True:
+        possible_classes.append(#single list of possible classes)
