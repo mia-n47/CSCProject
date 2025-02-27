@@ -15,15 +15,28 @@ database = [data.Classes("CSC 101", "TUETHU","8 am", "11am"),
             data.Classes("MATH 141", "MONTUETHUFRI", "7am", "8am"),
             data.Classes("ES 256", "TUETHU", "8am", "10am"),
             data.Classes("PHYS 142", "WEDFRI", "2pm","4pm"),
-            data.Classes("CSC 101", "MONWEDFRI", "10am", "12pm")
+            data.Classes("AERO 220", "TUE", "3pm", "6pm"),
+            data.Classes("AERO 299", "MONWEDFRI", "12pm", "1pm"),
+            data.Classes("AG 413", "TUE", "11am", "12pm"),
+            data.Classes("AG 581", "THU", "2pm", "3pm"),
+            data.Classes("ARCE 315", "MONWED", "10am", "12pm"),
+            data.Classes("ARCE 354", "TUE","8am", "11am")
             ]
+def user_data(d: list[data.Classes]) -> list[str]:
+    user_friendly = []
+    for clas in d:
+        user_friendly.append(clas.subject)
+    return user_friendly
 
-def class_verify(#single list):
+#def class_verify(#single list):
 
 
 
 def main():
+    print("Here are the classes available:", user_data(database))
     user_input = input("Enter 6 possible classes:" )
-    possible_classes = []#[[list of 4 possible classes], [list of possible 4 classes]]
-    if class_verify(#single list of possible classes) == True:
-        possible_classes.append(#single list of possible classes)
+
+    #possible_classes = []#[[list of 4 possible classes], [list of possible 4 classes]]
+    #if class_verify(#single list of possible classes) == True:
+        #possible_classes.append(#single list of possible classes)
+main()
