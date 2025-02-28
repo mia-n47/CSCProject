@@ -7,6 +7,5 @@ class Classes:
         self.units = units
 
     def __eq__(self, other):
-        if isinstance(other, str):
-            return self.subject == other
-        return False
+        if isinstance(other,str):
+            return other == self.subject
