@@ -1,4 +1,5 @@
 import data
+from itertools import combinations
 
 database = [data.Classes("CSC101", "TUETHU","8 am", "11am",4),
             data.Classes("PHYS143", "TUETHU", "1 pm", "3pm",4),
@@ -37,9 +38,18 @@ def convert_to_data(user_classes_str: list[str]) -> list[data.Classes]:
                 user_classes.append(course)
     return user_classes
 
-#def make_combinations_with_units(user_classes: list[data.Classes]): -> list[list[data.Classes]]:
-    #unit_verified_classes = []
-    #return unit_verified_classes
+def make_combinations_with_units(user_classes: list[data.Classes]) -> list[list[data.Classes]]:
+    unit_verified_classes = []
+    for r in range(1, len(user_classes)+1):
+        for combo in combinations(user_classes,r):
+            #r is the number of elements in the lists, therefore this function goes through a variety of list lengths
+            #user_classes is the list it is pulling from
+            total_units = sum(course.units for course in combo)
+            if 12<=total_units<=22:
+                unit_verified_classes.append(list(combo))
+    return unit_verified_classes
+
+
 #def verify_combinations(unit_verified_combinations: list[list[data.Classes]]) -> list[list[data.Classes]:
     #possible_combos = []
     #return possible_combos
@@ -52,7 +62,8 @@ def main():
     user_classes_str = user_input.split()
     user_classes = convert_to_data(user_classes_str)
     print(user_classes)
-    #unit_verified_classes = make_combinations_with_units(user_classes)
+    unit_verified_classes = make_combinations_with_units(user_classes)
+    print(unit_verified_classes)
    # possible_combos = verify_combinations(unit_verified_classes)
    # print("Here are the possible combinations of classes you can take:", possible_combos)
 
