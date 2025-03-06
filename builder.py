@@ -1,5 +1,6 @@
 import data
 from itertools import combinations
+from datetime import datetime
 
 database = [data.Classes("CSC101", "TUETHU","8 am", "11am",4),
             data.Classes("PHYS143", "TUETHU", "1 pm", "3pm",4),
@@ -49,11 +50,45 @@ def make_combinations_with_units(user_classes: list[data.Classes]) -> list[list[
                 unit_verified_classes.append(list(combo))
     return unit_verified_classes
 
+# converts a time string into a datetime object for easier comparison
+def analyze_time(time_str: str) -> datetime:
+    return datetime.strptime(time_str.replace(" ", ""), "%I%p") # tells python hour in 12 hr format and AM/PM
 
-#def verify_combinations(unit_verified_combinations: list[list[data.Classes]]) -> list[list[data.Classes]:
-    #possible_combos = []
-    #return possible_combos
+# sorts classes by their start time to help with organization
+def sort_classes_by_time(classes: list[data.Classes]) -> list[data.Classes]:
+    # Create a list of start times and their corresponding classes
+    class_times = []
+    for c in classes:
+        start_time = analyze_time(c.start_time)
+        class_times.append((start_time, c))  # Store the start time with the class
+    class_times.sort(key=get_start_time)
+    sorted_classes = []
+    for _, c in class_times:
+        sorted_classes.append(c)
 
+    return sorted_classes
+
+def get_start_time(class_tuple):
+    # This function returns the start time from a tuple (start_time, class)
+    return class_tuple[0]
+
+
+# checks if two classes overlap based on their days and times
+def classes_overlap(class1: data.Classes, class2: data.Classes) -> bool:
+    days_overlap = any(day in class2.days for day in class1.days)
+    if not days_overlap:
+        return False
+    start1, end1 = analyze_time(class1.start_time), analyze_time(class1.end_time)
+    start2, end2 = analyze_time(class2.start_time), analyze_time(class2.end_time)
+    return max(start1, start2) < min(end1, end2)
+
+# filters out class combinations that have scheduling conflict
+def verify_combinations(unit_verified_combinations: list[list[data.Classes]]) -> list[list[data.Classes]]:
+    possible_combos = []
+    for combo in unit_verified_combinations:
+        if all(not classes_overlap(c1, c2) for i, c1 in enumerate(combo) for c2 in combo[i+1:]):
+            possible_combos.append(combo) # only adds valid schedules
+    return possible_combos
 
 
 def main():
@@ -61,10 +96,9 @@ def main():
     user_input = input("Enter classes you would like to take with a space in between each:")
     user_classes_str = user_input.split()
     user_classes = convert_to_data(user_classes_str)
-    print(user_classes)
-    unit_verified_classes = make_combinations_with_units(user_classes)
-    print(unit_verified_classes)
-   # possible_combos = verify_combinations(unit_verified_classes)
-   # print("Here are the possible combinations of classes you can take:", possible_combos)
+    sorted_classes = sort_classes_by_time(user_classes)
+    unit_verified_classes = make_combinations_with_units(sorted_classes)
+    possible_combos = verify_combinations(unit_verified_classes)
+    print("Here are possible combinations of classes you can take:", possible_combos)
 
 main()
