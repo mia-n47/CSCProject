@@ -1,0 +1,25 @@
+import data
+
+database = [data.Classes("CSC101", "TUETHU","8 am", "11am",4),
+            data.Classes("PHYS143", "TUETHU", "1 pm", "3pm",4),
+            data.Classes("MATH244", "MONTUETHUFRI", "7am", "8am",4),
+            data.Classes("COMS101", "TUETHU","12pm", "2pm",4),
+            data.Classes("ENGL145", "WEDFRI", "11am", "1pm",4),
+            data.Classes("CHEM124", "MONWED", "6pm", "9pm",4),
+            data.Classes("EE111", "FRI", "9am", "10am",1),
+            data.Classes("ENGL134", "MONWEDFRI", "4pm", "6pm",4),
+            data.Classes("EE151", "TUE", "8 am", "11 am",1),
+            data.Classes("PHYS141", "MONTUETHUFRI", "5pm", "6pm",4),
+            data.Classes("MATH241", "MONTUETHUFRI", "7am", "8am",4),
+            data.Classes("MATH142", "MONTUETHUFRI", "9am", "10am",4),
+            data.Classes("MATH141", "MONTUETHUFRI", "7am", "8am",4),
+            data.Classes("ES256", "TUETHU", "8am", "10am",4),
+            data.Classes("PHYS142", "WEDFRI", "2pm","4pm",4),
+            data.Classes("AERO220", "TUE", "3pm", "6pm",4),
+            data.Classes("AERO299", "MONWEDFRI", "12pm", "1pm",4),
+            data.Classes("AG413", "TUE", "11am", "12pm",2),
+            data.Classes("AG581", "THU", "2pm", "3pm",2),
+            data.Classes("ARCE315", "MONWED", "10am", "12pm",4),
+            data.Classes("ARCE354", "TUE","8am", "11am",2),
+            data.Classes("SPAN380","TUETHU", "2pm", "4pm",4)
+            ]
