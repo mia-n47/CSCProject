@@ -85,16 +85,44 @@ def user_friendly_final(possible_combos: list[list[data.Classes]]) -> list[list[
         final_combos.append(new_user_combo)
     return final_combos
 
+# this functions makes a dictionary to display information about the combination of classes the user has selected
+def display_extra_info(course: data.Classes) -> dict:
+    info_dict = {"Subject:":course.subject, "Days:":course.days, "Start Time:":course.start_time,
+                 "End Time:":course.end_time, "Units:":course.units}
+    return info_dict
+
 def main():
     print("Here are the classes available:", user_data(courses.database))
+    print()
     user_input = input("Enter classes you would like to take with a space in between each:")
+    print()
     user_classes_str = user_input.split()
     user_classes = convert_to_data(user_classes_str)
+
     sorted_classes = sort_classes_by_time(user_classes)
+
     unit_verified_classes = make_combinations_with_units(sorted_classes)
+
     possible_combos = verify_combinations(unit_verified_classes)
     final_combos = user_friendly_final(possible_combos)
-    print("Here are possible combinations of classes you can take:")
-    for r in range(0,len(final_combos)-1):
-        print(final_combos[r])
+    if len(final_combos) == 0:
+        print("There are no possible combinations that include those classes")
+        print()
+    else:
+        print("Here are possible combinations of classes you can take:")
+        for r in range(0,len(final_combos)-1):
+            print(r,final_combos[r])
+        print()
+
+    idx = input("If you would like more information about a specific combination, enter the number to the left of it,"
+                "if you would like to re-enter classes, type RESET")
+    if idx != "RESET":
+        idx = int(idx)
+        combo_info = possible_combos[idx]
+        for course in combo_info:
+            print(display_extra_info(course))
+    elif idx == "RESET":
+        main()
+
+
 main()
