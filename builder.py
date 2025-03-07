@@ -91,38 +91,42 @@ def display_extra_info(course: data.Classes) -> dict:
                  "End Time:":course.end_time, "Units:":course.units}
     return info_dict
 
+# this functions allows us to generate schedules without needing specific user input, helping with testing
+def generate_schedules(user_classes_str: list[str]) -> list[list[str]]:
+    user_classes = convert_to_data(user_classes_str)
+    sorted_classes = sort_classes_by_time(user_classes)
+    unit_verified_classes = make_combinations_with_units(sorted_classes)
+    possible_combos = verify_combinations(unit_verified_classes)
+    return user_friendly_final(possible_combos)
+
+
 def main():
     print("Here are the classes available:", user_data(courses.database))
     print()
     user_input = input("Enter classes you would like to take with a space in between each:")
     print()
+
     user_classes_str = user_input.split()
-    user_classes = convert_to_data(user_classes_str)
+    final_combos = generate_schedules(user_classes_str)
 
-    sorted_classes = sort_classes_by_time(user_classes)
-
-    unit_verified_classes = make_combinations_with_units(sorted_classes)
-
-    possible_combos = verify_combinations(unit_verified_classes)
-    final_combos = user_friendly_final(possible_combos)
-    if len(final_combos) == 0:
+    if not final_combos:
         print("There are no possible combinations that include those classes")
         print()
     else:
         print("Here are possible combinations of classes you can take:")
-        for r in range(0,len(final_combos)-1):
-            print(r,final_combos[r])
+        for r, combo in enumerate(final_combos):
+            print(r, combo)
         print()
 
     idx = input("If you would like more information about a specific combination, enter the number to the left of it,"
-                "if you would like to re-enter classes, type RESET")
+                " or type RESET to re-enter classes: ")
     if idx != "RESET":
         idx = int(idx)
-        combo_info = possible_combos[idx]
+        combo_info = verify_combinations(make_combinations_with_units(convert_to_data(user_classes_str)))[idx]
         for course in combo_info:
             print(display_extra_info(course))
-    elif idx == "RESET":
+    else:
         main()
 
-
-main()
+if __name__ == "__main__":
+    main()
