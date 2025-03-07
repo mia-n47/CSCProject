@@ -99,7 +99,7 @@ def generate_schedules(user_classes_str: list[str]) -> list[list[str]]:
     possible_combos = verify_combinations(unit_verified_classes)
     return user_friendly_final(possible_combos)
 
-
+# The main function is used to communicate with the user and
 def main():
     print("Here are the classes available:", user_data(courses.database))
     print()

@@ -1,5 +1,6 @@
 import unittest
-from builder import user_data, analyze_time, convert_to_data, sort_classes_by_time, make_combinations_with_units, get_start_time, classes_overlap,verify_combinations
+from builder import (user_data, analyze_time, convert_to_data, sort_classes_by_time, make_combinations_with_units, get_start_time,
+                     classes_overlap,verify_combinations,user_friendly_final, display_extra_info)
 import data
 import datetime
 
@@ -113,11 +114,44 @@ class TestCases(unittest.TestCase):
     def test_task8_second(self):
         unit_verified_combinations = [[data.Classes("CHEM124", "MONWED", "6pm", "9pm",4),
                                        data.Classes("COMS101", "TUETHU","12pm", "2pm",4),
-
-                                       ]]
+                                       data.Classes("AERO220", "TUE", "3pm", "6pm", 4),
+                                       data.Classes("PHYS142", "WEDFRI", "2pm", "4pm", 4)]]
         expected = []
         result = verify_combinations(unit_verified_combinations)
         self.assertEqual(expected, result)
+
+    def test_task9_first(self):
+        possible_combos = [[data.Classes("CHEM124", "MONWED", "6pm", "9pm",4),
+                                       data.Classes("COMS101", "TUETHU","12pm", "2pm",4),
+                                       data.Classes("AERO220", "TUE", "3pm", "6pm", 4),
+                                       data.Classes("PHYS142", "WEDFRI", "2pm", "4pm", 4)]]
+        expected = [["CHEM124", "COMS101", "AERO220", "PHYS142"]]
+        result = user_friendly_final(possible_combos)
+        self.assertEqual(expected,result)
+    def test_task9_second(self):
+        possible_combos = [[data.Classes("ES256", "TUETHU", "8am", "10am",4),
+            data.Classes("PHYS142", "WEDFRI", "2pm","4pm",4),
+            data.Classes("AERO220", "TUE", "3pm", "6pm",4),
+            data.Classes("AERO299", "MONWEDFRI", "12pm", "1pm",4),
+            data.Classes("AG413", "TUE", "11am", "12pm",2)],
+            [data.Classes("AG581", "THU", "2pm", "3pm",2),
+            data.Classes("ARCE315", "MONWED", "10am", "12pm",4),
+            data.Classes("ARCE354", "TUE","8am", "11am",2),
+            data.Classes("SPAN380","TUETHU", "2pm", "4pm",4)]]
+        expected = [["ES256", "PHYS142","AERO220","AERO299","AG413"], ["AG581", "ARCE315", "ARCE354", "SPAN380"]]
+        result = user_friendly_final(possible_combos)
+        self.assertEqual(expected,result)
+
+    def test_task10_first(self):
+        course = data.Classes("ES256", "TUETHU", "8am", "10am",4)
+        expected = {"Subject:": "ES256", "Days:":"TUETHU", "Start Time:": "8am", "End Time:": "10am", "Units:": 4}
+        result = display_extra_info(course)
+        self.assertEqual(expected,result)
+    def test_task10_second(self):
+        course = data.Classes("SPAN380","TUETHU", "2pm", "4pm",4)
+        expected = {"Subject:": "SPAN380", "Days:": "TUETHU", "Start Time:": "2pm", "End Time:": "4pm", "Units:":4}
+        result = display_extra_info(course)
+        self.assertEqual(expected,result)
 
 
 if __name__ == '__main__':
